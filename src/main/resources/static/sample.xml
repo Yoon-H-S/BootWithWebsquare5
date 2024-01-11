@@ -10,29 +10,52 @@
         		<data xmlns="" />
         	</xf:instance>
         	<w2:dataCollection baseNode="map">
-        		<w2:dataMap baseNode="map" id="dma_req">
-        			<w2:keyInfo>
-        				<w2:key id="id" name="name1" dataType="text"></w2:key>
-        			</w2:keyInfo>
-        		</w2:dataMap>
         		<w2:dataList baseNode="list" repeatNode="map" id="dlt_list" saveRemovedData="true">
+        			<w2:columnInfo>
+        				<w2:column id="emp_CD" name="사번" dataType="number"></w2:column>
+        				<w2:column id="emp_NM" name="이름" dataType="text"></w2:column>
+        				<w2:column id="gender_CD" name="성별" dataType="text"></w2:column>
+        				<w2:column id="join_DATE" name="입사일" dataType="text"></w2:column>
+        				<w2:column id="position_CD" name="name5" dataType="text"></w2:column>
+        				<w2:column id="duty_CD" name="name6" dataType="text"></w2:column>
+        				<w2:column id="role_CD" name="name7" dataType="text"></w2:column>
+        				<w2:column id="assigned_TASK" name="name8" dataType="text"></w2:column>
+        				<w2:column id="email" name="이메일" dataType="text"></w2:column>
+        				<w2:column id="zip_CD" name="우편번호" dataType="text"></w2:column>
+        				<w2:column id="address1" name="주소" dataType="text"></w2:column>
+        				<w2:column id="address2" name="상세주소" dataType="text"></w2:column>
+        				<w2:column id="image_PATH" name="name13" dataType="text"></w2:column>
+        				<w2:column id="created_DATE" name="가입일" dataType="text"></w2:column>
+        				<w2:column id="updated_DATE" name="수정일" dataType="text"></w2:column>
+        			</w2:columnInfo>
+        		</w2:dataList>
+        		<w2:dataList baseNode="list" repeatNode="map" id="sm_list" saveRemovedData="true">
         			<w2:columnInfo>
         				<w2:column id="id" name="아이디" dataType="text"></w2:column>
         				<w2:column id="name" name="이름" dataType="text"></w2:column>
-        				<w2:column id="tel" name="전화번호" dataType="text"></w2:column>
+        				<w2:column id="phone" name="전화번호" dataType="text"></w2:column>
         			</w2:columnInfo>
         		</w2:dataList>
         	</w2:dataCollection>
         	<w2:workflowCollection></w2:workflowCollection>
-        	<xf:submission id="sbm_search" ref="data:json,dma_req" target="data:json,dlt_list" action="/testJson" method="post"
-        		mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
-        		processMsg="조회중.." ev:submit="" ev:submitdone="" ev:submiterror="" abortTrigger="">
+        	<xf:submission id="sbm_search" ref="" target="data:json,dlt_list" action="/userList" method="post" mediatype="application/json"
+        		encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="조회중.." ev:submit=""
+        		ev:submitdone="" ev:submiterror="" abortTrigger="">
+        	</xf:submission>
+        	<xf:submission id="sm_select" ref="" target="data:json,sm_list" action="/testJson" method="post" mediatype="application/json"
+        		encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit=""
+        		ev:submitdone="" ev:submiterror="" abortTrigger="">
         	</xf:submission>
         </xf:model>
         <script type="text/javascript"><![CDATA[
         
 scwin.btn_search_onclick = function(e) {
     $p.executeSubmission("sbm_search");
+};
+
+scwin.sm_sel_onclick = function(e) {
+    console.log("서브미션을 보냅니다.");
+    $p.executeSubmission("sm_select");
 };
 ]]></script>
     </head>
@@ -105,14 +128,131 @@ scwin.btn_search_onclick = function(e) {
     				</xf:group>
     			</xf:group>
     			<xf:group class="btn_schbox" id="" style="">
-    				<xf:trigger class="btn_cm sch" disabled="" escape="false" id="btn_search" style="" type="button" ev:onclick="scwin.btn_search_onclick">
+    				<xf:trigger class="btn_cm sch" disabled="" escape="false" id="btn_search" style="" type="button"
+    					ev:onclick="scwin.btn_search_onclick">
     					<xf:label><![CDATA[조회]]></xf:label>
     				</xf:trigger>
     			</xf:group>
     		</xf:group>
     		<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
     			<w2:gridView autoFit="allColumn" checkReadOnlyOnPasteEnable="" class="gvw" dataList="data:dlt_list" defaultCellHeight="26"
-    				focusMode="row" id="" scrollByColumn="false" scrollByColumnAdaptive="false" style="height: 150px;" visibleRowNum="10">
+    				focusMode="row" id="" scrollByColumn="false" scrollByColumnAdaptive="false" style="height: 150px;" visibleRowNum="10"
+    				rowNumVisible="true">
+    				<w2:caption style="" id="caption1" value="this is a grid caption."></w2:caption>
+    				<w2:header style="" id="header1">
+    					<w2:row style="" id="row1">
+    						<w2:column width="70" inputType="text" style="" id="column15" value="사번" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="column14" value="이름" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="column13" value="성별" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="column12" value="입사일" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="column11" value="name5" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="column10" value="name6" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="column9" value="name7" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="column8" value="name8" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="column7" value="이메일" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="column6" value="우편번호" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="column5" value="주소" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="column4" value="상세주소" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="column3" value="name13" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="column2" value="가입일" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="column1" value="수정일" displayMode="label"></w2:column>
+    					</w2:row>
+    				</w2:header>
+    				<w2:gBody style="" id="gBody1">
+    					<w2:row style="" id="row2">
+    						<w2:column width="70" inputType="text" style="" id="emp_CD" value="" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="emp_NM" value="" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="gender_CD" value="" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="join_DATE" value="" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="position_CD" value="" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="duty_CD" value="" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="role_CD" value="" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="assigned_TASK" value="" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="email" value="" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="zip_CD" value="" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="address1" value="" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="address2" value="" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="image_PATH" value="" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="created_DATE" value="" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="updated_DATE" value="" displayMode="label"></w2:column>
+    					</w2:row>
+    				</w2:gBody>
+    			</w2:gridView>
+    		</xf:group>
+    		<xf:group class="schbox" id="" style="">
+    			<xf:group class="schbox_inner" id="" style="">
+    				<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tbl " id="" style="" tagname="table">
+    					<w2:attributes>
+    						<w2:summary></w2:summary>
+    					</w2:attributes>
+    					<xf:group tagname="colgroup">
+    						<xf:group style="width:100px;" tagname="col"></xf:group>
+    						<xf:group style="" tagname="col"></xf:group>
+    						<xf:group style="width:100px;" tagname="col"></xf:group>
+    						<xf:group style="" tagname="col"></xf:group>
+    					</xf:group>
+    					<xf:group class="" id="" style="" tagname="tr">
+    						<xf:group class="w2tb_th" style="" tagname="th">
+    							<w2:textbox class="req" id="" label="조회조건" style=""></w2:textbox>
+    						</xf:group>
+    						<xf:group class="w2tb_td" style="" tagname="td">
+    							<xf:select1 allOption="true" appearance="minimal" chooseOption="" class="" direction="auto" disabled="false"
+    								disabledClass="w2selectbox_disabled" id="" ref="" renderType="" style="width:100px;" submenuSize="auto">
+    								<xf:choices>
+    									<xf:item>
+    										<xf:label><![CDATA[new row]]></xf:label>
+    										<xf:value></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[new row]]></xf:label>
+    										<xf:value></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[new row]]></xf:label>
+    										<xf:value></xf:value>
+    									</xf:item>
+    								</xf:choices>
+    							</xf:select1>
+    							<xf:trigger class="btn_cm " id="" style="" type="button">
+    								<xf:label><![CDATA[조회]]></xf:label>
+    							</xf:trigger>
+    						</xf:group>
+    						<xf:group class="w2tb_th" style="" tagname="th">
+    							<w2:textbox class="" id="" label="조회조건" style=""></w2:textbox>
+    						</xf:group>
+    						<xf:group class="w2tb_td" id="" style="" tagname="td">
+    							<xf:select1 appearance="full" cols="" disabled="" id="" ref="" renderType="radiogroup" rows=""
+    								selectedIndex="1" style="">
+    								<xf:choices>
+    									<xf:item>
+    										<xf:label><![CDATA[항목1]]></xf:label>
+    										<xf:value></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[항목2]]></xf:label>
+    										<xf:value></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[항목3]]></xf:label>
+    										<xf:value></xf:value>
+    									</xf:item>
+    								</xf:choices>
+    							</xf:select1>
+    						</xf:group>
+    					</xf:group>
+    				</xf:group>
+    			</xf:group>
+    			<xf:group class="btn_schbox" id="" style="">
+    				<xf:trigger class="btn_cm sch" disabled="" escape="false" id="sm_sel" style="" type="button" ev:onclick="scwin.sm_sel_onclick">
+    					<xf:label><![CDATA[조회]]></xf:label>
+    				</xf:trigger>
+    			</xf:group>
+    		</xf:group>
+    		<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
+    			<w2:gridView autoFit="allColumn" checkReadOnlyOnPasteEnable="" class="gvw" dataList="data:sm_list" defaultCellHeight="26"
+    				focusMode="row" id="" keepDefaultColumnWidth="true" rowNumHeaderValue="No" rowNumVisible="true" rowNumWidth="50"
+    				rowStatusHeaderValue="상태" rowStatusVisible="false" rowStatusWidth="50" scrollByColumn="false" scrollByColumnAdaptive="false"
+    				style="height: 150px;" visibleRowNum="10">
     				<w2:caption style="" id="caption1" value="this is a grid caption."></w2:caption>
     				<w2:header style="" id="header1">
     					<w2:row style="" id="row1">
@@ -125,7 +265,7 @@ scwin.btn_search_onclick = function(e) {
     					<w2:row style="" id="row2">
     						<w2:column width="70" inputType="text" style="" id="id" value="" displayMode="label"></w2:column>
     						<w2:column width="70" inputType="text" style="" id="name" value="" displayMode="label"></w2:column>
-    						<w2:column width="70" inputType="text" style="" id="tel" value="" displayMode="label"></w2:column>
+    						<w2:column width="70" inputType="text" style="" id="phone" value="" displayMode="label"></w2:column>
     					</w2:row>
     				</w2:gBody>
     			</w2:gridView>
